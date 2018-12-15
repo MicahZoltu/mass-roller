@@ -1,0 +1,6 @@
+{
+	"dependencies": {
+		"@types/knockout": "^3.4.60",
+		"typescript": "^3.2.2"
+	}
+}

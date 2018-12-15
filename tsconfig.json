@@ -1,0 +1,22 @@
+{
+	"compilerOptions": {
+		"target": "es2018",
+		"module": "amd",
+		"outDir": "./output/",
+		"sourceMap": true,
+		"strict": true,
+		"noEmitOnError": true,
+		"noImplicitAny": true,
+		"noImplicitThis": true,
+		"noImplicitReturns": true,
+		"emitDecoratorMetadata": true,
+		"experimentalDecorators": true,
+		"strictNullChecks": true,
+		"declaration": true,
+		"lib": [
+			"es2018",
+			"dom.iterable",
+			"dom"
+		],
+	}
+}
