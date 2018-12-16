@@ -297,6 +297,9 @@ define(["require", "exports", "knockout", "knockout-dragdrop"], function (requir
                 this.defenders.remove(defender);
                 if (this.selectedDefender() === defender)
                     this.selectedDefender(undefined);
+                const attacker = defender.attackers().find(attacker => attacker === this.selectedAttacker());
+                if (attacker !== undefined)
+                    this.selectedAttacker(undefined);
             };
             this.onAddAttacker = () => {
                 this.attackers.push(new Attacker());
@@ -327,22 +330,27 @@ define(["require", "exports", "knockout", "knockout-dragdrop"], function (requir
                 return true;
             };
             this.onDragLeave = (unused, dragEvent) => {
-                const targetElement = dragEvent.currentTarget;
-                targetElement.classList.remove('drag-over');
+                this.clearDragOver(dragEvent.currentTarget);
                 dragEvent.preventDefault();
                 return true;
             };
             this.onDropOnDefender = (defender, dragEvent) => {
+                this.clearDragOver(dragEvent.currentTarget);
                 const attacker = knockout_1.dataFor(document.getElementById(dragEvent.dataTransfer.getData('text')));
                 dragEvent.preventDefault();
                 this.onAttackerDroppedOnDefender(attacker, defender);
                 return true;
             };
             this.onDropOnAttackers = (usused, dragEvent) => {
+                this.clearDragOver(dragEvent.currentTarget);
                 const attacker = knockout_1.dataFor(document.getElementById(dragEvent.dataTransfer.getData('text')));
                 dragEvent.preventDefault();
                 this.onAttackerDroppedOnUnusedList(attacker);
                 return true;
+            };
+            this.clearDragOver = (eventTarget) => {
+                const targetElement = eventTarget;
+                targetElement.classList.remove('drag-over');
             };
             this.removeAttacker = (attacker) => {
                 if (this.attackers.remove(attacker).length !== 0)

@@ -296,6 +296,8 @@ class ViewModel {
 	onRemoveDefender = (defender: Defender) => {
 		this.defenders.remove(defender)
 		if (this.selectedDefender() === defender) this.selectedDefender(undefined)
+		const attacker = defender.attackers().find(attacker => attacker === this.selectedAttacker())
+		if (attacker !== undefined) this.selectedAttacker(undefined)
 	}
 
 	onAddAttacker = () => {
@@ -333,13 +335,13 @@ class ViewModel {
 	}
 
 	onDragLeave = (unused: any, dragEvent: DragEvent) => {
-		const targetElement = dragEvent.currentTarget as HTMLElement
-		targetElement.classList.remove('drag-over')
+		this.clearDragOver(dragEvent.currentTarget)
 		dragEvent.preventDefault()
 		return true
 	}
 
 	onDropOnDefender = (defender: Defender, dragEvent: DragEvent) => {
+		this.clearDragOver(dragEvent.currentTarget)
 		const attacker = dataFor(document.getElementById(dragEvent.dataTransfer!.getData('text'))) as Attacker
 		dragEvent.preventDefault()
 		this.onAttackerDroppedOnDefender(attacker, defender)
@@ -347,10 +349,16 @@ class ViewModel {
 	}
 
 	onDropOnAttackers = (usused: any, dragEvent: DragEvent) => {
+		this.clearDragOver(dragEvent.currentTarget)
 		const attacker = dataFor(document.getElementById(dragEvent.dataTransfer!.getData('text'))) as Attacker
 		dragEvent.preventDefault()
 		this.onAttackerDroppedOnUnusedList(attacker)
 		return true
+	}
+
+	private clearDragOver = (eventTarget: EventTarget | null) => {
+		const targetElement = eventTarget as HTMLElement
+		targetElement.classList.remove('drag-over')
 	}
 
 	private removeAttacker = (attacker: Attacker) => {

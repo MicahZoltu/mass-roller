@@ -3,8 +3,7 @@
 
 <head>
 	<title>5e Mass Combat Roller</title>
-	<link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css' integrity='sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO' crossorigin='anonymous'>
-	<script defer src="https://use.fontawesome.com/releases/v5.6.1/js/all.js" integrity="sha384-R5JkiUweZpJjELPWqttAYmYM1P3SNEJRM6ecTQF05pFFtxmCO+Y1CiUhvuDzgSVZ" crossorigin="anonymous"></script>
+	<link defer rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css' integrity='sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO' crossorigin='anonymous'>
 	<link rel='stylesheet' href='index.css'>
 	<meta name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no'>
 	<meta charset='utf-8'>
@@ -34,9 +33,9 @@
 				</div>
 				<div class='form-inline form-group' data-bind='with: damage'>
 					<input type='number' class='form-control mr-2 small-number' onfocus='this.select()' data-bind='value: count'>
-					<span class='sm-1'>d</span>
+					<label class='sm-1'>d</label>
 					<input type='number' class='form-control mx-2 small-number' onfocus='this.select()' data-bind='value: sides'>
-					<span class='sm-1'>+</span>
+					<label class='sm-1'>+</label>
 					<input type='number' class='form-control mx-2 small-number' onfocus='this.select()' data-bind='value: modifier'>
 					<select class='custom-select fixed-width-select form-control col-sm-2' data-bind='options: ["acid", "bludgeoning", "cold", "fire", "force", "lightning", "necrotic", "piercing", "poison", "psychic", "radiant", "slashing", "thunder"], value: type'></select>
 				</div>
@@ -55,9 +54,9 @@
 					<button class='btn mr-2' data-bind='css: { "btn-primary": !!damage(), "btn-secondary": !damage() }, click: toggleDamage'>Damage</button>
 					<div class='form-inline form-group' data-bind='with: damage'>
 						<input type='number' class='form-control mr-2 small-number' onfocus='this.select()' data-bind='value: count'>
-						<span class='sm-1'>d</span>
+						<label class='sm-1'>d</label>
 						<input type='number' class='form-control mx-2 small-number' onfocus='this.select()' data-bind='value: sides'>
-						<span class='sm-1'>+</span>
+						<label class='sm-1'>+</label>
 						<input type='number' class='form-control mx-2 small-number' onfocus='this.select()' data-bind='value: modifier'>
 						<select class='custom-select fixed-width-select form-control col-sm-2' style='flex:auto' data-bind='options: ["acid", "bludgeoning", "cold", "fire", "force", "lightning", "necrotic", "piercing", "poison", "psychic", "radiant", "slashing", "thunder"], value: type'></select>
 					</div>
@@ -111,12 +110,20 @@
 			<!-- ko foreach: defenders -->
 			<div class='defender' data-bind='event: { dragover: $root.onDragOver, dragleave: $root.onDragLeave, drop: $root.onDropOnDefender }'>
 				<div class='card-header defender-header'>
-					<span class='hidden' data-bind='click: $root.onRemoveDefender, clickBubble: false'><span class='fas fa-2x fa-pull-right fa-times' style='opacity: 0.5'></span></span>
-					<h4 class='text-left' data-bind='text: name, click: $root.onSelectDefender'></h4>
+					<span class='hidden float-right' style='opacity: 0.5' data-bind='click: $root.onRemoveDefender, clickBubble: false'>
+						<svg preserveAspectRatio='xMidYMid meet' width="40" height="40" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
+							<path d="M1490 1322q0 40-28 68l-136 136q-28 28-68 28t-68-28l-294-294-294 294q-28 28-68 28t-68-28l-136-136q-28-28-28-68t28-68l294-294-294-294q-28-28-28-68t28-68l136-136q28-28 68-28t68 28l294 294 294-294q28-28 68-28t68 28l136 136q28 28 28 68t-28 68l-294 294 294 294q28 28 28 68z"/>
+						</svg>
+					</span>
+					<h4 class='unselectable text-left' data-bind='text: name, click: $root.onSelectDefender'></h4>
 				</div>
 				<ul class='list' data-bind='foreach: attackers'>
 					<li class='attacker' draggable='true' data-bind='event: { dragstart: $root.onDragStart }, uniqueId: true'>
-						<span class='hidden' data-bind='click: $root.onRemoveAttacker, clickBubble: false'><span class='fas fa-2x fa-pull-right fa-times' style='opacity: 0.5'></span></span>
+						<span class='hidden float-right' style='opacity: 0.5' data-bind='click: $root.onRemoveAttacker, clickBubble: false'>
+							<svg preserveAspectRatio='xMidYMid meet' width="30" height="30" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
+								<path d="M1490 1322q0 40-28 68l-136 136q-28 28-68 28t-68-28l-294-294-294 294q-28 28-68 28t-68-28l-136-136q-28-28-28-68t28-68l294-294-294-294q-28-28-28-68t28-68l136-136q28-28 68-28t68 28l294 294 294-294q28-28 68-28t68 28l136 136q28 28 28 68t-28 68l-294 294 294 294q28 28 28 68z"/>
+							</svg>
+						</span>
 						<h4 class='text-left' data-bind='text: name() + " (" + count() + ")", click: $root.onSelectAttacker, clickBubble: false'></h4>
 					</li>
 				</ul>
@@ -134,7 +141,11 @@
 			<ul class='list'>
 				<!-- ko foreach: attackers -->
 				<li class='attacker' draggable='true' data-bind='event: { dragstart: $root.onDragStart }, uniqueId: true'>
-					<span class='hidden' data-bind='click: $root.onRemoveAttacker, clickBubble: false'><span class='fas fa-2x fa-pull-right fa-times' style='opacity: 0.5'></span></span>
+					<span class='hidden float-right' style='opacity: 0.5' data-bind='click: $root.onRemoveAttacker, clickBubble: false'>
+						<svg preserveAspectRatio='xMidYMid meet' width="30" height="30" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
+							<path d="M1490 1322q0 40-28 68l-136 136q-28 28-68 28t-68-28l-294-294-294 294q-28 28-68 28t-68-28l-136-136q-28-28-28-68t28-68l294-294-294-294q-28-28-28-68t28-68l136-136q28-28 68-28t68 28l294 294 294-294q28-28 68-28t68 28l136 136q28 28 28 68t-28 68l-294 294 294 294q28 28 28 68z"/>
+						</svg>
+					</span>
 					<h4 class='text-left' data-bind='text: name() + " (" + count() + ")", click: $root.onSelectAttacker, clickBubble: true'></h4>
 				</li>
 				<!-- /ko -->
@@ -147,7 +158,7 @@
 				</li>
 			</ul>
 		</section>
-		<section class='section roll' data-bind='click: onRoll'>Roll</section>
+		<section class='section roll unselectable' data-bind='click: onRoll'>Roll</section>
 		<section class='section results' style='padding: 10px; grid-gap: 10px; display: grid' data-bind='foreach: results'>
 			<div style='border-style: double'>
 				<div style='padding: 5px'>
